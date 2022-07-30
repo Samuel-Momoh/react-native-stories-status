@@ -19,7 +19,7 @@ const StoryCircleListView = (props) => {
             <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={data}
-                horizontal
+                horizontal={false}
                 style={{paddingLeft: 12}}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
