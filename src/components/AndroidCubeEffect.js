@@ -9,6 +9,8 @@ import {
     LogBox
 } from 'react-native';
 
+LogBox.ignoreLogs(['Warning: componentWillReceiveProps']);
+
 const {width, height} = Dimensions.get('window');
 
 const PESPECTIVE = Platform.OS === 'ios' ? 2.38 : 2.2;

@@ -109,6 +109,7 @@ export const Story = (props: Props) => {
     const renderStoryList = () => selectedData.map((x, i) => {
         return (<StoryListItem duration={duration * 1000}
                                key={i}
+                               profileId={x.user_id}
                                profileName={x.user_name}
                                profileImage={x.user_image}
                                stories={x.stories}

@@ -87,13 +87,13 @@ export default StoryCircleListItem;
 const styles = StyleSheet.create({
     container: {
         marginVertical: 5,
-        marginRight: 10
+        marginRight: 10,
     },
     avatarWrapper: {
         borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        alignSelf: "center",
+        // alignSelf: "center",
         borderColor: 'red',
         borderRadius: 100,
         height: 64,
