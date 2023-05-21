@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Animated,
     Image,
@@ -12,12 +12,13 @@ import {
     Platform,
     SafeAreaView
 } from "react-native";
-import type {IUserStoryItem} from "./interfaces/IUserStory";
-import {usePrevious} from "./helpers/StateHelpers";
-import {isNullOrWhitespace} from "./helpers/ValidationHelpers";
+import type { IUserStoryItem } from "./interfaces/IUserStory";
+import { usePrevious } from "./helpers/StateHelpers";
+import { isNullOrWhitespace } from "./helpers/ValidationHelpers";
 import GestureRecognizer from 'react-native-swipe-gestures';
+import FitImage from 'react-native-fit-image';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 type Props = {
     duration?: number,
@@ -28,7 +29,7 @@ type Props = {
 
 export const StoryList = (props: Props) => {
     const stories = props.stories;
-console.log(JSON.stringify(stories,0,2), "Stories props")
+    console.log(JSON.stringify(stories, 0, 2), "Stories props")
     const [load, setLoad] = useState(true);
     const [pressed, setPressed] = useState(false);
     const [content, setContent] = useState(
@@ -83,7 +84,7 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
     }, [current]);
 
     function start() {
-        setLoad(false);
+        // setLoad(false);
         progress.setValue(0);
         startAnimation();
     }
@@ -93,7 +94,7 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
             toValue: 1,
             duration: props.duration,
             useNativeDriver: false
-        }).start(({finished}) => {
+        }).start(({ finished }) => {
             if (finished) {
                 next();
             }
@@ -120,7 +121,7 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
 
     function next() {
         // check if the next content is not empty
-        setLoad(true);
+        // setLoad(true);
         if (current !== content.length - 1) {
             let data = [...content];
             data[current].finish = 1;
@@ -135,7 +136,7 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
 
     function previous() {
         // checking if the previous content is not empty
-        setLoad(true);
+        // setLoad(true);
         if (current - 1 >= 0) {
             let data = [...content];
             data[current].finish = 0;
@@ -170,22 +171,10 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
             config={config}
             style={{
                 flex: 1,
-                // backgroundColor: 'black',
             }}
         >
-        
-            {/* <SafeAreaView>
-                <View style={styles.backgroundContainer}>
-                    <Image onLoadEnd={() => start()}
-                           source={{uri: content[current].image}}
-                           style={styles.image}
-                    />
-                    {load && <View style={styles.spinnerContainer}>
-                        <ActivityIndicator size="large" color={'white'}/>
-                    </View>}
-                </View>
-            </SafeAreaView> */}
-            <View style={{flexDirection: 'column', flex: 1,}}>
+
+            <View style={{ flexDirection: 'column', flex: 1, }}>
                 <View style={styles.animationBarContainer}>
                     {content.map((index, key) => {
                         return (
@@ -203,13 +192,12 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
                 </View>
 
                 <View style={styles.backgroundContainer}>
-                    <Image onLoadEnd={() => start()}
-                           source={{uri: content[current].image}}
-                           style={styles.image}
+                    <FitImage
+                        onLoadEnd={() => start()}
+                        indicatorColor="#252423"
+                        source={{ uri: content[current].image }}
+                        style={styles.fitImage}
                     />
-                    {load && <View style={styles.spinnerContainer}>
-                        <ActivityIndicator size="large" color={'white'}/>
-                    </View>}
                 </View>
 
                 <View style={styles.pressContainer}>
@@ -221,28 +209,32 @@ console.log(JSON.stringify(stories,0,2), "Stories props")
                             startAnimation();
                         }}
                         onPress={() => {
-                            if (!pressed && !load) {
+                            if (!pressed) {
                                 previous()
                             }
                         }}
-                        style={{flex: 1}}
+                        style={{ flex: 1 }}
                     >
-                        <View style={{flex: 1}}/>
+                        <View style={{
+                            flex: 1,
+                        }} />
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPressIn={() => progress.stopAnimation()}
-                                              onLongPress={() => setPressed(true)}
-                                              onPressOut={() => {
-                                                  setPressed(false);
-                                                  startAnimation();
-                                              }}
-                                              onPress={() => {
-                                                  if (!pressed && !load) {
-                                                      next()
-                                                  }
-                                              }}
-                                              style={{flex: 1}}
-                                              >
-                        <View style={{flex: 1}}/>
+                        onLongPress={() => setPressed(true)}
+                        onPressOut={() => {
+                            setPressed(false);
+                            startAnimation();
+                        }}
+                        onPress={() => {
+                            if (!pressed) {
+                                next()
+                            }
+                        }}
+                        style={{ flex: 1 }}
+                    >
+                        <View style={{
+                            flex: 1,
+                        }} />
                     </TouchableWithoutFeedback>
                 </View>
             </View>
@@ -332,5 +324,8 @@ const styles = StyleSheet.create({
         left: 0,
         alignItems: 'center',
         bottom: Platform.OS == 'ios' ? 20 : 50
+    },
+    fitImage: {
+        borderRadius: 8,
     }
 });

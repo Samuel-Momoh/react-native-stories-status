@@ -14,7 +14,7 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-fit-image": "^1.5.5",
-    "react-native-insta-story": "git+https://github.com/caglardurmus/react-native-insta-story",
+    "react-native-insta-story": "https://github.com/Samuel-Momoh/react-native-stories-status.git",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
