@@ -1,6 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
 import {StoryList} from 'react-native-insta-story';
+import CountDown from 'react-native-countdown-component';
 
 const {height, width} = Dimensions.get("screen");
 
@@ -33,6 +34,12 @@ export default function App() {
                             //    onFinish={onStoryFinish}
                                />
 </View>
+   <CountDown
+        until={80}
+        // onFinish={() => alert('finished')}
+        // onPress={() => alert('hello')}
+        size={20}
+      />
 
         </SafeAreaView>
     );

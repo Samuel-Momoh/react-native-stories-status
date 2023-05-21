@@ -13,6 +13,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-countdown-component": "https://github.com/Samuel-Momoh/react-native-countdown-component.git",
     "react-native-fit-image": "^1.5.5",
     "react-native-insta-story": "https://github.com/Samuel-Momoh/react-native-stories-status.git",
     "react-native-web": "0.17.1"
