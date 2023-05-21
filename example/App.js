@@ -1,7 +1,8 @@
 import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, Text, View} from 'react-native';
-import InstaStory from 'react-native-insta-story';
+import {StyleSheet, Text, View, SafeAreaView, Dimensions} from 'react-native';
+import {StoryList} from 'react-native-insta-story';
 
+const {height, width} = Dimensions.get("screen");
 const data = [
     {
         user_id: 1,
@@ -111,21 +112,56 @@ const data = [
                 onPress: (props) => console.log('story 1 swiped',props),
             }]
     }];
-
+const stories = [
+    {
+      "story_id": 1,
+      "story_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjORKvjcbMRGYPR3QIs3MofoWkD4wHzRd_eg&usqp=CAU",
+      "swipeText": "Custom swipe text for this story",
+      "text": {
+        "heading": "Inspirational quote",
+        "dsc": "You are not a failure and you can never be one. The fact that you survived your mother’s womb and the many hostilities that have come against you shows that there is a fighter inside you."
+      }
+    },
+    {
+      "story_id": 2,
+      "story_image": "https://files.oyebesmartest.com/uploads/preview/vivo-u20-mobile-wallpaper-full-hd-(1)qm6qyz9v60.jpg",
+      "swipeText": "Custom swipe text for this story",
+      "text": {
+        "heading": "Inspirational quote",
+        "dsc": "The word is the vehicle of God’s power and He uses it to hold things up. The word can hold up your life, marriage and destiny and they will not fall."
+      }
+    },
+    {
+      "story_id": 3,
+      "story_image": "https://image.freepik.com/free-vector/universe-mobile-wallpaper-with-planets_79603-600.jpg",
+      "swipeText": "Custom swipe text for this story",
+      "text": {
+        "heading": "Inspirational quote",
+        "dsc": "Whatever you are striving to achieve in life is already a past event for somebody else; it has already been achieved. Whenever you connect with people, you save yourself some unnecessary twists and turns of the journey of life and destiny."
+      }
+    }
+  ]
 export default function App() {
+    const duration = 3
     return (
-        <View style={styles.container}>
-            <StatusBar style="auto"/>
-            <InstaStory data={data}
+        <SafeAreaView style={styles.container}>
+            {/* <InstaStory data={data}
                         duration={10}
                         customSwipeUpComponent={<View>
                             <Text style={{color:'#000'}}>Share</Text>
                         </View>}
 
                         style={{marginTop: 30}}
-            />
-            
-        </View>
+            /> */}
+<View style={{ height: height / 2, width: width - 20, paddingHorizontal: 10 }}>
+<StoryList duration={duration * 1000}
+                               key={1}
+                               stories={stories}
+                            //    onFinish={onStoryFinish}
+                               />
+</View>
+
+        </SafeAreaView>
     );
 }
 
@@ -133,5 +169,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        alignItems:"center"
     },
 });
